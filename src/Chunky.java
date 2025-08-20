@@ -43,29 +43,64 @@ public class Chunky {
                     System.out.println(" " + (i + 1) + "." + tasks.get(i));
                 }
             } else {
-                System.out.println("Got it. I've added this task:");
-                if (txt.startsWith("event ")) {
-                    String str = txt.substring(6);
-                    String[] part = str.split(" /from | /to");
-                    String des = part[0];
-                    String start = part[1];
-                    String end = part[2];
-                    Events e = new Events(des, start, end);
-                    tasks.add(e);
+                try {
+                    if (txt.trim().isEmpty()) {
+                        throw new MissingArgumentException("Cant send nothing to Chunky");
+                    }
+                    if (txt.startsWith("event")) {
+                        if (txt.length() == 4) {
+                            throw new MissingArgumentException("Event description cannot be empty!");
+                        }
+                        String str = txt.substring(6);
+                        if (str.isEmpty()) {
+                            throw new MissingArgumentException("Event description cannot be empty!");
+                        }
+                        String[] part = str.split(" /from | /to");
+                        if (part.length != 3) {
+                            throw new InvalidMessageException(
+                                    "Event format should be: event <description> /from <start> /to <end>");
+                        }
+                        String des = part[0];
+                        String start = part[1];
+                        String end = part[2];
+                        Events e = new Events(des, start, end);
+                        tasks.add(e);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(e);
+                    } else if (txt.startsWith("deadline")) {
+                        if (txt.length() == 8) {
+                            throw new MissingArgumentException("Event description cannot be empty!");
+                        }
+                        String str = txt.substring(9);
+                        if (str.isEmpty()) {
+                            throw new MissingArgumentException("Event description cannot be empty!");
+                        }
+                        String[] part = str.split(" /by ");
+                        if (part.length != 2) {
+                            throw new InvalidMessageException(
+                                    "Event format should be: event <description> /by <date>");
+                        }
+                        String des = part[0];
+                        String by = part[1];
+                        Deadlines d = new Deadlines(des, by);
+                        tasks.add(d);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(d);
+                    } else if (txt.startsWith("todo")) {
+                        if (txt.length() == 4) {
+                            throw new MissingArgumentException("Event description cannot be empty!");
+                        }
+                        String str = txt.substring(5);
+                        if (str.isEmpty()) {
+                            throw new MissingArgumentException("Event description cannot be empty!");
+                        }
+                        ToDo toDo = new ToDo(str);
+                        tasks.add(toDo);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(toDo);
+                    }
+                } catch (ChunkyException e) {
                     System.out.println(e);
-                } else if (txt.startsWith("deadline ")) {
-                    String str = txt.substring(9);
-                    String[] part = str.split(" /by ");
-                    String des = part[0];
-                    String by = part[1];
-                    Deadlines d = new Deadlines(des, by);
-                    tasks.add(d);
-                    System.out.println(d);
-                } else {
-                    String str = txt.substring(5);
-                    ToDo toDo = new ToDo(str);
-                    tasks.add(toDo);
-                    System.out.println(toDo);
                 }
             }
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
