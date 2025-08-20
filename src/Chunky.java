@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Chunky {
     public static List<Task> tasks = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MissingArgumentException, InvalidMessageException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -22,20 +22,61 @@ public class Chunky {
 
         String txt = sc.nextLine();
         while (!txt.trim().equalsIgnoreCase("bye")) {
+
             System.out.println("____________________________________________________________");
             if (txt.startsWith("mark ")) {
-                int taskNum = Integer.parseInt(txt.substring(5)) - 1;
-                if (taskNum >= 0 && taskNum < tasks.size()) {
-                    tasks.get(taskNum).markAsDone();
-                    System.out.println(" Nice! I've marked this task as done:");
-                    System.out.println("   " + tasks.get(taskNum));
+                try {
+                    String str = txt.substring(5);
+                    if (str.isEmpty()) {
+                        throw new MissingArgumentException("delete description cannot be empty!");
+                    }
+                    int taskNum = Integer.parseInt(str) - 1;
+                    if (taskNum >= tasks.size()) {
+                        throw new InvalidMessageException("Invalid task number!");
+                    }
+                    if (taskNum >= 0 && taskNum < tasks.size()) {
+                        tasks.get(taskNum).markAsDone();
+                        System.out.println(" Nice! I've marked this task as done:");
+                        System.out.println("   " + tasks.get(taskNum));
+                    }
+                } catch (ChunkyException e) {
+                    System.out.println(e);;
                 }
+
             } else if (txt.startsWith("unmark ")) {
-                int taskNum = Integer.parseInt(txt.substring(7)) - 1;
-                if (taskNum >= 0 && taskNum < tasks.size()) {
-                    tasks.get(taskNum).unmarkDone();
-                    System.out.println(" Okay! Unmarked the task:");
-                    System.out.println("   " + tasks.get(taskNum));
+                try {
+                    String str = txt.substring(7);
+                    if (str.isEmpty()) {
+                        throw new MissingArgumentException("delete description cannot be empty!");
+                    }
+                    int taskNum = Integer.parseInt(str) - 1;
+                    if (taskNum >= tasks.size()) {
+                        throw new InvalidMessageException("Invalid task number!");
+                    }
+                    if (taskNum >= 0 && taskNum < tasks.size()) {
+                        tasks.get(taskNum).unmarkDone();
+                        System.out.println(" Okay! Unmarked the task:");
+                        System.out.println("   " + tasks.get(taskNum));
+                    }
+                } catch (ChunkyException e) {
+                    System.out.println(e);
+                }
+
+            } else if (txt.startsWith("delete ")) {
+                try {
+                    String str = txt.substring(7);
+                    if (str.isEmpty()) {
+                        throw new MissingArgumentException("delete description cannot be empty!");
+                    }
+                    int taskNum = Integer.parseInt(str) - 1;
+                    if (taskNum >= tasks.size()) {
+                        throw new InvalidMessageException("Invalid task number!");
+                    }
+                    Task t = tasks.get(taskNum);
+                    System.out.println("Okay! removed " + t);
+                    tasks.remove(taskNum);
+                } catch (ChunkyException e) {
+                    System.out.println(e);
                 }
             } else if (txt.equals("list")) {
                 System.out.println(" Here are the tasks in your list:");
@@ -69,11 +110,11 @@ public class Chunky {
                         System.out.println(e);
                     } else if (txt.startsWith("deadline")) {
                         if (txt.length() == 8) {
-                            throw new MissingArgumentException("Event description cannot be empty!");
+                            throw new MissingArgumentException("Deadline description cannot be empty!");
                         }
                         String str = txt.substring(9);
                         if (str.isEmpty()) {
-                            throw new MissingArgumentException("Event description cannot be empty!");
+                            throw new MissingArgumentException("Deadline description cannot be empty!");
                         }
                         String[] part = str.split(" /by ");
                         if (part.length != 2) {
@@ -88,11 +129,11 @@ public class Chunky {
                         System.out.println(d);
                     } else if (txt.startsWith("todo")) {
                         if (txt.length() == 4) {
-                            throw new MissingArgumentException("Event description cannot be empty!");
+                            throw new MissingArgumentException("Todo description cannot be empty!");
                         }
                         String str = txt.substring(5);
                         if (str.isEmpty()) {
-                            throw new MissingArgumentException("Event description cannot be empty!");
+                            throw new MissingArgumentException("Todo description cannot be empty!");
                         }
                         ToDo toDo = new ToDo(str);
                         tasks.add(toDo);
