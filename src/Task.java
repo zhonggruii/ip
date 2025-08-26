@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     private String description;
     private boolean isDone;
@@ -17,6 +20,17 @@ public class Task {
 
     public void unmarkDone() {
         this.isDone = false;
+    }
+
+    /**
+     * Convert YYYY-MM-DD to MMM d yyyy format
+     *
+     * @param dateInput Date to be formatted
+     * @return formatted date i.e Oct 25 2025
+     */
+    public String formatDate(String dateInput) {
+        LocalDate date = LocalDate.parse(dateInput);
+        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     @Override
