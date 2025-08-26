@@ -1,11 +1,35 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Chunky {
+public class Chunky{
     public static List<Task> tasks = new ArrayList<>();
+    public static String textToAdd = "";
 
-    public static void main(String[] args) throws MissingArgumentException, InvalidMessageException {
+    /**
+     * Writes the chatbot's tasks into a file and stores it
+     * as Chunky.txt
+     *
+     * @param textToAdd the text to add into the file
+     * @throws IOException throws when the file is not found
+     */
+    public static void fileWrite(String textToAdd) throws IOException {
+        try {
+            String filePath = "../Chunky.txt";
+            File file = new File(filePath);
+            FileWriter fw = new FileWriter(filePath, true);
+            fw.write(textToAdd);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error creating file!");
+            throw e;
+        }
+    }
+
+    public static void main(String[] args) throws MissingArgumentException, InvalidMessageException, IOException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -148,6 +172,10 @@ public class Chunky {
             System.out.println("____________________________________________________________");
             txt = sc.nextLine();
         }
+        for (int i = 0; i < tasks.size(); i++) {
+            textToAdd += " " + (i + 1) + "." + tasks.get(i) + "\n";
+        }
+        fileWrite(textToAdd);
         System.out.println("----------------------------\n");
         System.out.println(txt + " See ya!");
         System.out.println("----------------------------\n");
