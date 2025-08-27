@@ -1,7 +1,7 @@
 package main.java.Chunky.Task;
 
 /**
- * Deadlines class, has a deadline for each Task Object
+ * Deadlines class, has a deadline for each Task Objects
  */
 public class Deadlines extends Task {
     private String dueDate;
