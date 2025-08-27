@@ -8,6 +8,8 @@ import main.java.Chunky.Task.Events;
 import main.java.Chunky.Task.Task;
 import main.java.Chunky.Task.ToDo;
 
+import java.util.ArrayList;
+
 /**
  * Parses the input of the user and creates respective Task Objects
  */
@@ -68,6 +70,20 @@ public class Parser {
             default:
                 throw new InvalidMessageException("Unknown task type!");
         }
+    }
+
+    /**
+     * Formats based on the input given to become keywords
+     * @param input the command
+     * @return the keywords
+     * @throws ChunkyException if theres no argument
+     */
+    public static String parseSearchKeyword(String input) throws ChunkyException {
+        String arguments = getArguments(input);
+        if (arguments.isEmpty()) {
+            throw new MissingArgumentException("Find keyword cannot be empty!");
+        }
+        return arguments;
     }
 
     /**

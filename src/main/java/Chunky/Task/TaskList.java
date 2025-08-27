@@ -38,6 +38,21 @@ public class TaskList {
     }
 
     /**
+     * Finds matching task based on keyword
+     * @param keyword the keyword to match the tasks
+     * @return the matching tasks
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
+
+    /**
      * Find the size of the list
      * @return the size of the list
      */

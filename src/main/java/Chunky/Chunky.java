@@ -7,6 +7,7 @@ import main.java.Chunky.Task.TaskList;
 import main.java.Chunky.Ui.Ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Chunky {
     private Storage storage;
@@ -64,6 +65,10 @@ public class Chunky {
                     Task newTask = Parser.parseTask(input);
                     tasks.add(newTask);
                     ui.showTaskAdded(newTask, tasks.size());
+                } else if (command.equals("find")) {
+                    String keyword = Parser.parseSearchKeyword(input);
+                    ArrayList<Task> foundTasks = tasks.findTasks(keyword);
+                    ui.showFoundTasks(foundTasks);
                 } else {
                     throw new InvalidMessageException("Unknown command: " + command);
                 }
@@ -83,6 +88,6 @@ public class Chunky {
     }
 
     public static void main(String[] args) {
-        new Chunky("ip/Chunky.txt").run();
+        new Chunky("./Chunky.txt").run();
     }
 }
