@@ -32,9 +32,7 @@ public class Chunky {
             try {
                 String input = ui.readCommand();
                 ui.showLine();
-
                 String command = Parser.getCommand(input);
-
                 if (command.equals("bye")) {
                     storage.save(tasks.getTasks());
                     isExit = true;
