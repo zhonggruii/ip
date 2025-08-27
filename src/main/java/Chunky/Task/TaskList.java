@@ -1,8 +1,9 @@
+package main.java.Chunky.Task;
+
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Contain List of Task
+ * Contain List of main.java.Chunky.Chunky.main.java.Chunky.Task.Task
  * Supports operations of adding and deleting tasks from List
  */
 public class TaskList {
@@ -18,14 +19,14 @@ public class TaskList {
 
     /**
      * Add task to taskList
-     * @param t Task to be added inside tasklist
+     * @param t main.java.Chunky.Chunky.main.java.Chunky.Task.Task to be added inside tasklist
      */
     public void add(Task t) {
         this.taskList.add(t);
     }
 
     /**
-     * Remove task from TaskList
+     * Remove task from main.java.Chunky.Chunky.main.java.Chunky.Task.TaskList
      * @param index the task which the index contains
      * @throws IllegalArgumentException if index out of bounds or the list is empty
      */

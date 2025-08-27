@@ -1,3 +1,13 @@
+package main.java.Chunky.Parser;
+
+import main.java.Chunky.ChunkyException;
+import main.java.Chunky.InvalidMessageException;
+import main.java.Chunky.MissingArgumentException;
+import main.java.Chunky.Task.Deadlines;
+import main.java.Chunky.Task.Events;
+import main.java.Chunky.Task.Task;
+import main.java.Chunky.Task.ToDo;
+
 public class Parser {
 
     public static String getCommand(String input) {
@@ -11,12 +21,12 @@ public class Parser {
 
     public static int parseTaskIndex(String arguments) throws InvalidMessageException, MissingArgumentException {
         if (arguments.isEmpty()) {
-            throw new MissingArgumentException("Task number cannot be empty!");
+            throw new MissingArgumentException("main.java.Chunky.Chunky.main.java.Chunky.Task.Task number cannot be empty!");
         }
         try {
             return Integer.parseInt(arguments.trim()) - 1;
         } catch (NumberFormatException e) {
-            throw new InvalidMessageException("Task number must be a valid integer!");
+            throw new InvalidMessageException("main.java.Chunky.Chunky.main.java.Chunky.Task.Task number must be a valid integer!");
         }
     }
 

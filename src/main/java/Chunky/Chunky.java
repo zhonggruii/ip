@@ -1,3 +1,11 @@
+package main.java.Chunky;
+
+import main.java.Chunky.Parser.Parser;
+import main.java.Chunky.Storage.Storage;
+import main.java.Chunky.Task.Task;
+import main.java.Chunky.Task.TaskList;
+import main.java.Chunky.Ui.Ui;
+
 import java.io.IOException;
 
 public class Chunky {

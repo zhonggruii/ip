@@ -1,3 +1,10 @@
+package main.java.Chunky.Storage;
+
+import main.java.Chunky.Task.Deadlines;
+import main.java.Chunky.Task.Events;
+import main.java.Chunky.Task.Task;
+import main.java.Chunky.Task.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,7 +22,7 @@ public class Storage {
     /**
      * Load file from filePath
      * @throws FileNotFoundException if filePath leads to a file that doesnt exist
-     * @return Task List
+     * @return main.java.Chunky.Chunky.main.java.Chunky.Task.Task List
      */
     public ArrayList<Task> load() throws IOException{
         ArrayList<Task> lst = new ArrayList<>();
@@ -51,9 +58,9 @@ public class Storage {
     }
 
     /**
-     * Convert lines in file to Task Objects
+     * Convert lines in file to main.java.Chunky.Chunky.main.java.Chunky.Task.Task Objects
      * @param str line from the file
-     * @return Task objects
+     * @return main.java.Chunky.Chunky.main.java.Chunky.Task.Task objects
      */
     private Task parseTaskFromString(String str) {
         String[] parts = str.split(" \\| ");

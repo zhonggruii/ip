@@ -1,3 +1,8 @@
+package main.java.Chunky.Ui;
+
+import main.java.Chunky.Task.Task;
+import main.java.Chunky.Task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -14,7 +19,7 @@ public class Ui {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         showLine();
-        System.out.println("Hello! I'm Chunky!\n" + logo);
+        System.out.println("Hello! I'm main.java.Chunky.Chunky.main.java.Chunky.Chunky!\n" + logo);
         System.out.println("What can I do for you ?");
         showLine();
     }
