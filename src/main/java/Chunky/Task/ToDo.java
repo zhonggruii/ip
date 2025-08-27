@@ -1,5 +1,8 @@
 package main.java.Chunky.Task;
 
+/**
+ * To Do class to create To Do objects
+ */
 public class ToDo extends Task {
 
     public ToDo(String description) {

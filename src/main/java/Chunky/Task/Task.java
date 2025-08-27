@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Task class to create Task Object
+ */
 public class Task {
     private String description;
     private boolean isDone;

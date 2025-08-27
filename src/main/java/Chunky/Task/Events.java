@@ -1,5 +1,8 @@
 package main.java.Chunky.Task;
 
+/**
+ * Events class, has a start and end date/time as a task object
+ */
 public class Events extends Task {
     private String startTime;
     private String endTime;

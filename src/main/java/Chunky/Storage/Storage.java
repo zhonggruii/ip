@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Stores and loads the file containing the list of tasks
+ */
 public class Storage {
     private String filePath;
 
@@ -45,6 +48,11 @@ public class Storage {
         return lst;
     }
 
+    /**
+     * Saves the list of tasks into a file
+     * @param tasks the list of tasks
+     * @throws IOException when an invalid filepath is given
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         try (FileWriter fw = new FileWriter(filePath, false)) {
             for (Task task : tasks) {
@@ -88,6 +96,11 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Converts the tasks into string format to be saved in the file
+     * @param task the task to be converted
+     * @return formatted string
+     */
     private String taskToString(Task task) {
         String type;
         String extraInfo = "";

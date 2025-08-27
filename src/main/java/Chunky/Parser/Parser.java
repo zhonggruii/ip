@@ -8,6 +8,9 @@ import main.java.Chunky.Task.Events;
 import main.java.Chunky.Task.Task;
 import main.java.Chunky.Task.ToDo;
 
+/**
+ * Parses the input of the user and creates respective Task Objects
+ */
 public class Parser {
 
     public static String getCommand(String input) {
@@ -19,17 +22,32 @@ public class Parser {
         return parts.length > 1 ? parts[1] : "";
     }
 
+    /**
+     * Converts input and finds task number to allow action on the specific task index
+     * @param arguments the command to be acted on the task
+     * @return the task index
+     * @throws InvalidMessageException if theres no arguments
+     * @throws MissingArgumentException if an invalid number is given
+     */
     public static int parseTaskIndex(String arguments) throws InvalidMessageException, MissingArgumentException {
         if (arguments.isEmpty()) {
-            throw new MissingArgumentException("main.java.Chunky.Chunky.main.java.Chunky.Task.Task number cannot be empty!");
+            throw new MissingArgumentException(
+                    "main.java.Chunky.Chunky.main.java.Chunky.Task.Task number cannot be empty!");
         }
         try {
             return Integer.parseInt(arguments.trim()) - 1;
         } catch (NumberFormatException e) {
-            throw new InvalidMessageException("main.java.Chunky.Chunky.main.java.Chunky.Task.Task number must be a valid integer!");
+            throw new InvalidMessageException(
+                    "main.java.Chunky.Chunky.main.java.Chunky.Task.Task number must be a valid integer!");
         }
     }
 
+    /**
+     * Takes the input and creates the respective task
+     * @param input the task to be added
+     * @return the respective Task object
+     * @throws ChunkyException when a command not belonging to the Task class is given
+     */
     public static Task parseTask(String input) throws ChunkyException {
         String command = getCommand(input);
         String arguments = getArguments(input);
@@ -52,6 +70,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a Deadline object
+     * @param arguments the deadline to be formatted
+     * @return a Deadline object
+     * @throws ChunkyException when the format inputted is wrong
+     */
     private static Task parseDeadline(String arguments) throws ChunkyException {
         if (arguments.isEmpty()) {
             throw new MissingArgumentException("Deadline description cannot be empty!");
@@ -65,6 +89,12 @@ public class Parser {
         return new Deadlines(parts[0].trim(), parts[1].trim());
     }
 
+    /**
+     * Creates an Event object
+     * @param arguments the event to be formatted
+     * @return an Event object
+     * @throws ChunkyException when the format inputted is wrong
+     */
     private static Task parseEvent(String arguments) throws ChunkyException {
         if (arguments.isEmpty()) {
             throw new MissingArgumentException("Event description cannot be empty!");
@@ -79,10 +109,14 @@ public class Parser {
         return new Events(parts[0].trim(), parts[1].trim(), parts[2].trim());
     }
 
+    /**
+     * Ensures onlu dates and time are inputted
+     * @param dateInput the date and time to be validated
+     * @throws InvalidMessageException if a non date and time is given
+     */
     private static void validateDate(String dateInput) throws InvalidMessageException {
         String trimmed = dateInput.trim().toLowerCase();
 
-        // Must contain at least one digit OR common date/time word
         if (!trimmed.matches(
                 ".*(\\d|today|tomorrow|monday|tuesday|wednesday|thursday|friday|saturday|sunday|pm|am).*")) {
             throw new InvalidMessageException("Please provide a valid date!");
