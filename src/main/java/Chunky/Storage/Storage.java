@@ -45,15 +45,11 @@ public class Storage {
         return lst;
     }
 
-    public void save(ArrayList<Task> tasks) throws IOException{
-        try {
-            FileWriter fw = new FileWriter(this.filePath, true);
-            for (int i = 0; i < tasks.size(); i++) {
-                fw.write(i + ". " + tasks.get(i));
+    public void save(ArrayList<Task> tasks) throws IOException {
+        try (FileWriter fw = new FileWriter(filePath, false)) {
+            for (Task task : tasks) {
+                fw.write(taskToString(task) + "\n");
             }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println(e);
         }
     }
 
@@ -90,5 +86,25 @@ public class Storage {
             task.markAsDone();
         }
         return task;
+    }
+
+    private String taskToString(Task task) {
+        String type;
+        String extraInfo = "";
+
+        if (task instanceof ToDo) {
+            type = "T";
+        } else if (task instanceof Deadlines) {
+            type = "D";
+            extraInfo = " | " + ((Deadlines) task).getBy();
+        } else if (task instanceof Events) {
+            type = "E";
+            extraInfo = " | " + ((Events) task).getFrom() + " | " + ((Events) task).getTo();
+        } else {
+            return "";
+        }
+
+        String isDone = task.getDone() ? "1" : "0";
+        return type + " | " + isDone + " | " + task.getDescription() + extraInfo;
     }
 }

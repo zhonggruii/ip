@@ -75,12 +75,16 @@ public class Chunky {
             }
             ui.showLine();
         }
-
+        try {
+            storage.save(tasks.getTasks());
+        } catch (IOException e) {
+            ui.showError("Could not save tasks: " + e.getMessage());
+        }
         ui.showGoodbye();
         ui.close();
     }
 
     public static void main(String[] args) {
-        new Chunky("../Chunky.txt").run();
+        new Chunky("ip/Chunky.txt").run();
     }
 }

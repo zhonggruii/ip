@@ -12,4 +12,8 @@ public class Deadlines extends Task {
     public String toString() {
         return "[D] " + super.toString() + " (by: " + super.formatDate(this .dueDate) + ")";
     }
+
+    public String getBy() {
+        return this.dueDate;
+    }
 }

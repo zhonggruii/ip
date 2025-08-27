@@ -16,4 +16,12 @@ public class Events extends Task {
                 String.format(" (from: %s to: %s)", super.formatDate(this.startTime),
                         super.formatDate(this.endTime));
     }
+
+    public String getFrom() {
+        return this.startTime;
+    }
+
+    public String getTo() {
+        return this.endTime;
+    }
 }
