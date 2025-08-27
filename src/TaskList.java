@@ -1,0 +1,63 @@
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Contain List of Task
+ * Supports operations of adding and deleting tasks from List
+ */
+public class TaskList {
+    public ArrayList<Task> taskList;
+
+    public TaskList() {
+        this.taskList = new ArrayList<>();
+    }
+
+    public TaskList(ArrayList<Task> lst) {
+        this.taskList = lst;
+    }
+
+    /**
+     * Add task to taskList
+     * @param t Task to be added inside tasklist
+     */
+    public void add(Task t) {
+        this.taskList.add(t);
+    }
+
+    /**
+     * Remove task from TaskList
+     * @param index the task which the index contains
+     * @throws IllegalArgumentException if index out of bounds or the list is empty
+     */
+    public void delete(int index) {
+        if (taskList.size() < index || taskList.isEmpty()) {
+            throw new IllegalArgumentException("Invalid argument!");
+        }
+        taskList.remove(index);
+    }
+
+    /**
+     * Find the size of the list
+     * @return the size of the list
+     */
+    public int size() {
+        return taskList.size();
+    }
+
+    /**
+     * Return the task at given index
+     * @param index the task which the index contains
+     * @throws IllegalArgumentException if index out of bounds or the list is empty
+     * @return the task at the index
+     */
+    public Task get(int index) {
+        if (taskList.size() < index || taskList.isEmpty()) {
+            throw new IllegalArgumentException("Invalid argument!");
+        }
+        return taskList.get(index);
+    }
+
+    public ArrayList<Task> getTasks() {
+        return taskList;
+    }
+}

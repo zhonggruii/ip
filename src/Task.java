@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Task {
     private String description;
@@ -28,10 +29,15 @@ public class Task {
      * @param dateInput Date to be formatted
      * @return formatted date i.e Oct 25 2025
      */
-    public String formatDate(String dateInput) {
-        LocalDate date = LocalDate.parse(dateInput);
-        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    public static String formatDate(String dateInput) {
+        try {
+            LocalDate date = LocalDate.parse(dateInput);
+            return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } catch (DateTimeParseException e) {
+            return dateInput; // Return as-is, no validation here
+        }
     }
+
 
     @Override
     public String toString() {
