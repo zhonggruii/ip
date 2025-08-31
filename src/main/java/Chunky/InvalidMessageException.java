@@ -1,4 +1,4 @@
-package main.java.Chunky;
+package Chunky;
 
 public class InvalidMessageException extends ChunkyException {
     public InvalidMessageException(String msg) {

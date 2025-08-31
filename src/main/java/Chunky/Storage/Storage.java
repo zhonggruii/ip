@@ -1,9 +1,9 @@
-package main.java.Chunky.Storage;
+package Chunky.Storage;
 
-import main.java.Chunky.Task.Deadlines;
-import main.java.Chunky.Task.Events;
-import main.java.Chunky.Task.Task;
-import main.java.Chunky.Task.ToDo;
+import Chunky.Task.Deadlines;
+import Chunky.Task.Events;
+import Chunky.Task.Task;
+import Chunky.Task.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

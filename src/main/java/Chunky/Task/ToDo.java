@@ -1,4 +1,4 @@
-package main.java.Chunky.Task;
+package Chunky.Task;
 
 /**
  * To Do class to create To Do objects

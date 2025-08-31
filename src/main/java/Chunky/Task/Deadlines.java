@@ -1,4 +1,4 @@
-package main.java.Chunky.Task;
+package Chunky.Task;
 
 /**
  * Deadlines class, has a deadline for each Task Objects

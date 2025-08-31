@@ -1,13 +1,15 @@
-package main.java.Chunky;
+package Chunky;
 
-import main.java.Chunky.Parser.Parser;
-import main.java.Chunky.Storage.Storage;
-import main.java.Chunky.Task.Task;
-import main.java.Chunky.Task.TaskList;
-import main.java.Chunky.Ui.Ui;
+import Chunky.Parser.Parser;
+import Chunky.Storage.Storage;
+import Chunky.Task.Task;
+import Chunky.Task.TaskList;
+import Chunky.Ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import javafx.application.Application;
+
 
 public class Chunky {
     private Storage storage;

@@ -1,4 +1,4 @@
-package main.java.Chunky.Task;
+package Chunky.Task;
 
 /**
  * Events class, has a start and end date/time as a task object

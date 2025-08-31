@@ -1,4 +1,4 @@
-package main.java.Chunky.Task;
+package Chunky.Task;
 
 import java.util.ArrayList;
 

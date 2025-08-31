@@ -1,7 +1,7 @@
-package main.java.Chunky.Ui;
+package Chunky.Ui;
 
-import main.java.Chunky.Task.Task;
-import main.java.Chunky.Task.TaskList;
+import Chunky.Task.Task;
+import Chunky.Task.TaskList;
 
 import java.util.ArrayList;
 import java.util.Scanner;

@@ -1,12 +1,12 @@
-package main.java.Chunky.Parser;
+package Chunky.Parser;
 
-import main.java.Chunky.ChunkyException;
-import main.java.Chunky.InvalidMessageException;
-import main.java.Chunky.MissingArgumentException;
-import main.java.Chunky.Task.Deadlines;
-import main.java.Chunky.Task.Events;
-import main.java.Chunky.Task.Task;
-import main.java.Chunky.Task.ToDo;
+import Chunky.ChunkyException;
+import Chunky.InvalidMessageException;
+import Chunky.MissingArgumentException;
+import Chunky.Task.Deadlines;
+import Chunky.Task.Events;
+import Chunky.Task.Task;
+import Chunky.Task.ToDo;
 
 import java.util.ArrayList;
 
