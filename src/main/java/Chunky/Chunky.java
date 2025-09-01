@@ -1,5 +1,13 @@
 package Chunky;
 
+import Chunky.Command.Command;
+import Chunky.Command.ByeCommand;
+import Chunky.Command.ListCommand;
+import Chunky.Command.AddTaskCommand;
+import Chunky.Command.DeleteCommand;
+import Chunky.Command.MarkCommand;
+import Chunky.Command.UnmarkCommand;
+import Chunky.Command.FindCommand;
 import Chunky.Parser.Parser;
 import Chunky.Storage.Storage;
 import Chunky.Task.Task;
@@ -8,6 +16,9 @@ import Chunky.Ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.application.Application;
 
 
@@ -15,6 +26,7 @@ public class Chunky {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private Map<String, Command> commands;
 
     public Chunky(String filePath) {
         this.ui = new Ui();
@@ -22,70 +34,72 @@ public class Chunky {
         try {
             this.tasks = new TaskList(this.storage.load());
         } catch (IOException e) {
-            this.ui.showError("Could not load existing tasks: " + e.getMessage());
             this.tasks = new TaskList();
+        }
+
+        // Initialize command map
+        this.commands = new HashMap<>();
+        commands.put("list", new ListCommand());
+        commands.put("mark", new MarkCommand());
+        commands.put("unmark", new UnmarkCommand());
+        commands.put("delete", new DeleteCommand());
+        commands.put("todo", new AddTaskCommand());
+        commands.put("deadline", new AddTaskCommand());
+        commands.put("event", new AddTaskCommand());
+        commands.put("find", new FindCommand());
+    }
+
+    /**
+     * Generates a response for the user's chat message using Command pattern.
+     * @param input gets input to see which command is entered
+     * @return executes the command and returns Chunk's reply
+     */
+    public String getResponse(String input) {
+        if (input.trim().isEmpty()) {
+            return "Please enter a command!";
+        }
+
+        try {
+            String commandName = Parser.getCommand(input);
+
+            if (commandName.equals("bye")) {
+                storage.save(tasks.getTasks());
+                return "Bye! Hope to see you again soon!\nTasks have been saved.";
+            }
+
+            Command command = commands.get(commandName);
+            if (command != null) {
+                return command.execute(input, tasks, storage);
+            } else {
+                return "Unknown command: " + commandName;
+            }
+
+        } catch (Exception e) {
+            return e.getMessage();
         }
     }
 
+    /**
+     * Runs Chunky
+     */
     public void run() {
         ui.showWelcome();
-
         boolean isExit = false;
         while (!isExit) {
             try {
                 String input = ui.readCommand();
                 ui.showLine();
-                String command = Parser.getCommand(input);
-                if (command.equals("bye")) {
-                    storage.save(tasks.getTasks());
-                    isExit = true;
-                } else if (command.equals("list")) {
-                    ui.showTaskList(tasks);
-                } else if (command.equals("mark")) {
-                    int index = Parser.parseTaskIndex(Parser.getArguments(input));
-                    if (index >= tasks.size()) {
-                        throw new InvalidMessageException("Invalid task number!");
-                    }
-                    tasks.get(index).markAsDone();
-                    ui.showTaskMarked(tasks.get(index));
-                } else if (command.equals("unmark")) {
-                    int index = Parser.parseTaskIndex(Parser.getArguments(input));
-                    if (index >= tasks.size()) {
-                        throw new InvalidMessageException("Invalid task number!");
-                    }
-                    tasks.get(index).unmarkDone();
-                    ui.showTaskUnmarked(tasks.get(index));
-                } else if (command.equals("delete")) {
-                    int index = Parser.parseTaskIndex(Parser.getArguments(input));
-                    if (index >= tasks.size()) {
-                        throw new InvalidMessageException("Invalid task number!");
-                    }
-                    Task deletedTask = tasks.get(index);
-                    tasks.delete(index);
-                    ui.showTaskDeleted(deletedTask, tasks.size());
-                } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
-                    Task newTask = Parser.parseTask(input);
-                    tasks.add(newTask);
-                    ui.showTaskAdded(newTask, tasks.size());
-                } else if (command.equals("find")) {
-                    String keyword = Parser.parseSearchKeyword(input);
-                    ArrayList<Task> foundTasks = tasks.findTasks(keyword);
-                    ui.showFoundTasks(foundTasks);
-                } else {
-                    throw new InvalidMessageException("Unknown command: " + command);
-                }
+                String response = getResponse(input);
+                System.out.println(response);
 
-            } catch (ChunkyException | IOException e) {
+                if (Parser.getCommand(input).equals("bye")) {
+                    isExit = true;
+                }
+            } catch (Exception e) {
                 ui.showError(e.getMessage());
             }
             ui.showLine();
         }
-        try {
-            storage.save(tasks.getTasks());
-        } catch (IOException e) {
-            ui.showError("Could not save tasks: " + e.getMessage());
-        }
-        ui.showGoodbye();
         ui.close();
     }
 

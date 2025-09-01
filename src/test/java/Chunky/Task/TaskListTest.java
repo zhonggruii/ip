@@ -1,7 +1,7 @@
-package test.java.Chunky.Task;
+package Chunky.Task;
 
-import main.java.Chunky.Task.TaskList;
-import main.java.Chunky.Task.ToDo;
+import Chunky.Task.TaskList;
+import Chunky.Task.ToDo;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

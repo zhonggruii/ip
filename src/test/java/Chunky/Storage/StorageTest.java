@@ -1,8 +1,8 @@
-package test.java.Chunky.Storage;
+package Chunky.Storage;
 
-import main.java.Chunky.Storage.Storage;
-import main.java.Chunky.Task.Task;
-import main.java.Chunky.Task.ToDo;
+import Chunky.Storage.Storage;
+import Chunky.Task.Task;
+import Chunky.Task.ToDo;
 import org.junit.Test;
 
 import java.io.IOException;
