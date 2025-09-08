@@ -59,7 +59,7 @@ public class Parser {
                 if (arguments.isEmpty()) {
                     throw new MissingArgumentException("Todo description cannot be empty!");
                 }
-                return new ToDo(arguments);
+                return parseToDo(arguments);
 
             case "deadline":
                 return parseDeadline(arguments);
@@ -86,6 +86,21 @@ public class Parser {
         return arguments;
     }
 
+    private static Task parseToDo(String arguments) throws ChunkyException {
+        if (arguments.isEmpty()) {
+            throw new MissingArgumentException("Deadline description cannot be empty!");
+        }
+
+        String[] parts = arguments.split("/at ", 2);
+        if (parts.length != 2) {
+            throw new InvalidMessageException(
+                    "Deadline format should be: deadline <description> /by <date> /at <location>"
+            );
+        }
+
+        return new ToDo(parts[0].trim(), parts[1].trim());
+    }
+
     /**
      * Creates a Deadline object
      * @param arguments the deadline to be formatted
@@ -97,12 +112,14 @@ public class Parser {
             throw new MissingArgumentException("Deadline description cannot be empty!");
         }
 
-        String[] parts = arguments.split(" /by ", 2);
-        if (parts.length != 2) {
-            throw new InvalidMessageException("Deadline format should be: deadline <description> /by <date>");
+        String[] parts = arguments.split(" /by | /at ", 3);
+        if (parts.length != 3) {
+            throw new InvalidMessageException(
+                    "Deadline format should be: deadline <description> /by <date> /at <location>"
+            );
         }
         validateDate(parts[1].trim());
-        return new Deadlines(parts[0].trim(), parts[1].trim());
+        return new Deadlines(parts[0].trim(), parts[1].trim(), parts[2].trim());
     }
 
     /**
@@ -116,13 +133,14 @@ public class Parser {
             throw new MissingArgumentException("Event description cannot be empty!");
         }
 
-        String[] parts = arguments.split(" /from | /to");
-        if (parts.length != 3) {
-            throw new InvalidMessageException("Event format should be: event <description> /from <start> /to <end>");
+        String[] parts = arguments.split(" /from | /to | /at");
+        if (parts.length != 4) {
+            throw new InvalidMessageException(
+                    "Event format should be: event <description> /from <start> /to <end> /at <location");
         }
         validateDate(parts[1].trim());
         validateDate(parts[2].trim());
-        return new Events(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        return new Events(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim());
     }
 
     /**

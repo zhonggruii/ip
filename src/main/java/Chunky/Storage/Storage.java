@@ -76,16 +76,21 @@ public class Storage {
         Task task;
         switch (type) {
             case "T":
-                task = new ToDo(description);
+                String locationToDo = parts.length > 3 ? parts[3] : "";
+                task = new ToDo(description, locationToDo);
                 break;
             case "D":
+                if (parts.length < 4) return null;
                 String by = parts[3];
-                task = new Deadlines(description, by);
+                String locationDeadline = parts.length > 4 ? parts[4] : "";
+                task = new Deadlines(description, by, locationDeadline);
                 break;
             case "E":
+                if (parts.length < 5) return null;
                 String from = parts[3];
                 String to = parts[4];
-                task = new Events(description, from, to);
+                String locationEvents = parts.length > 5 ? parts[5] : "";
+                task = new Events(description, from, to, locationEvents);
                 break;
             default:
                 return null;
@@ -107,12 +112,14 @@ public class Storage {
 
         if (task instanceof ToDo) {
             type = "T";
+            extraInfo = " | " + ((ToDo) task).getLocation();
         } else if (task instanceof Deadlines) {
             type = "D";
-            extraInfo = " | " + ((Deadlines) task).getBy();
+            extraInfo = " | " + ((Deadlines) task).getBy() + ((Deadlines) task).getLocation();;
         } else if (task instanceof Events) {
             type = "E";
-            extraInfo = " | " + ((Events) task).getFrom() + " | " + ((Events) task).getTo();
+            extraInfo = " | " + ((Events) task).getFrom() + " | " + ((Events) task).getTo() +
+                    ((Events) task).getLocation();
         } else {
             return "";
         }

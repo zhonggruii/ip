@@ -1,6 +1,5 @@
 package Chunky.Storage;
 
-import Chunky.Storage.Storage;
 import Chunky.Task.Task;
 import Chunky.Task.ToDo;
 import org.junit.Test;
@@ -17,7 +16,7 @@ public class StorageTest {
     public void testSaveAndLoadRoundTrip() throws IOException {
         storage = new Storage("./StorageTest.txt");
         ArrayList<Task> originalTasks = new ArrayList<>();
-        originalTasks.add(new ToDo("test task"));
+        originalTasks.add(new ToDo("test task", "capt"));
 
         storage.save(originalTasks);
         ArrayList<Task> loadedTasks = storage.load();

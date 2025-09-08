@@ -104,6 +104,6 @@ public class Chunky {
     }
 
     public static void main(String[] args) {
-        new Chunky("./Chunky.txt").run();
+        new Chunky("ip/Chunky.txt").run();
     }
 }
