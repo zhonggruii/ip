@@ -1,7 +1,6 @@
 package Chunky;
 
 import Chunky.Command.Command;
-import Chunky.Command.ByeCommand;
 import Chunky.Command.ListCommand;
 import Chunky.Command.AddTaskCommand;
 import Chunky.Command.DeleteCommand;
@@ -10,16 +9,12 @@ import Chunky.Command.UnmarkCommand;
 import Chunky.Command.FindCommand;
 import Chunky.Parser.Parser;
 import Chunky.Storage.Storage;
-import Chunky.Task.Task;
 import Chunky.Task.TaskList;
 import Chunky.Ui.Ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import javafx.application.Application;
 
 
 public class Chunky {

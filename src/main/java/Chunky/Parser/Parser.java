@@ -16,10 +16,12 @@ import java.util.ArrayList;
 public class Parser {
 
     public static String getCommand(String input) {
+        assert input != "" : "Cant put empty string";
         return input.trim().split("\\s+")[0].toLowerCase();
     }
 
     public static String getArguments(String input) {
+        assert input != "" : "Cant put empty string";
         String[] parts = input.trim().split("\\s+", 2);
         return parts.length > 1 ? parts[1] : "";
     }

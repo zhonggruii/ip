@@ -19,6 +19,7 @@ public class Storage {
     private String filePath;
 
     public Storage(String filePath) {
+        assert filePath != "" : "Cant put empty filepath";
         this.filePath = filePath;
     }
 
@@ -67,9 +68,11 @@ public class Storage {
      * @return main.java.Chunky.Chunky.main.java.Chunky.Task.Task objects
      */
     private Task parseTaskFromString(String str) {
+        assert str != "" : "Cant be empty string";
         String[] parts = str.split(" \\| ");
         if (parts.length < 3) return null;
         String type = parts[0];
+        assert type != null && !type.trim().isEmpty() : "Task cant be empty";
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
@@ -107,6 +110,7 @@ public class Storage {
      * @return formatted string
      */
     private String taskToString(Task task) {
+        assert task != null : "Task cant be null";
         String type;
         String extraInfo = "";
 
