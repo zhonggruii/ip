@@ -82,7 +82,7 @@ public class Storage {
                 task = new ToDo(description);
                 break;
             case "D":
-                String by = parts[3]; // deadline info
+                String by = parts[3];
                 task = new Deadlines(description, by);
                 break;
             case "E":
