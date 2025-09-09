@@ -88,6 +88,12 @@ public class Parser {
         return arguments;
     }
 
+    /**
+     * Creates To Do Object
+     * @param arguments the To Do Task to be formatted
+     * @return To Do object
+     * @throws ChunkyException when format inputted is wrong
+     */
     private static Task parseToDo(String arguments) throws ChunkyException {
         if (arguments.isEmpty()) {
             throw new MissingArgumentException("Deadline description cannot be empty!");
